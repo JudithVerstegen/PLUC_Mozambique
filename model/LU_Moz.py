@@ -3,8 +3,8 @@ Judith Verstegen, 2011-01-27
 
 """
 
-from PCRaster import *
-from PCRaster.Framework import *
+from pcraster import *
+from pcraster.framework import *
 import Parameters
 
 #######################################
