@@ -1,0 +1,12 @@
+-0	landuse
+1	cropland
+2	cropland+grassland
+3	cropland+pasture
+4	forest
+6	grassland
+7	pasture
+8	shrubland
+9	excluded
+10	urban
+98	deforestated
+99	abandoned
