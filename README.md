@@ -35,15 +35,21 @@ Maps carry all spatially explicit data. Maps have to be provided according to th
 http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. The current metadata of all maps is:
 
 ncols | 1166 |
+
 nrows | 1839 |
+
 xllcorner | 195374 |
+
 yllcorner | 7003459 |
+
 cellsize | 1000 | 
+
 NODATA_value | -9999 |
 
 Maps can be replaced by new maps as long as one keeps the extent, filename, data type (value scale) and measurement unit the same. It is also possible to change the study area (and thus extent), but all maps need to have the same extent. An overview of all input maps and their characteristics is given in Table 1. Note that the unit for cattle and population density states 'per area'. This means it does not matter whether this is per cell or per meter or something else, because the data is only used as a proxy and will be normalized anyway. If there is no need to exclude extra areas for bioenergy crops, then make the 'bioNoGo' input map empty (all No Data values) or copy the general 'noGo' map into it.
 
 Table 1: Characteristics of input maps
+
 filename | contents | data type | unit |
 ------ | ------ | -------| ------| 
 biomass.map | fraction of the maximum biomass a forest cell produces | scalar | -	| 
