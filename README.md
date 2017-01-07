@@ -32,12 +32,53 @@ The model is distributed as a compressed file (zip file). When unpacked, one wil
 
 Maps
 Maps carry all spatially explicit data. Maps have to be provided according to the PCRaster map format (extension .map). A description how to convert ascii files to PCRaster maps can be found at
-http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. The current extent of all maps is:
+http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. The current metadata of all maps is:
 
-ncols1166nrows1839xllcorner195374yllcorner7003459cellsize1000NODATA_value -9999
+ncols 1166
+nrows 1839
+xllcorner 195374
+yllcorner 7003459
+cellsize 1000
 
-Maps can be replaced by new maps as long as one keeps the extent, filename, data type (value scale) and measurement unit the same. It is also possible to change the study area (and thus extent), but all maps need to have the same extent. An overview of all input maps and their characteristics is given in Table 1. Note that the unit for cattle and population density states 'per area'. This means it does not matter whether this is per cell or per meter or something else, because the data is only used as a proxy and will be normalized anyway. If there is no need to exclude extra areas for bioenergy crops, then make the ' bioNoGo' input map empty (all No Data values) or copy the normal 'noGo' map into it.
+NODATA_value -9999
 
+Maps can be replaced by new maps as long as one keeps the extent, filename, data type (value scale) and measurement unit the same. It is also possible to change the study area (and thus extent), but all maps need to have the same extent. An overview of all input maps and their characteristics is given in Table 1. Note that the unit for cattle and population density states 'per area'. This means it does not matter whether this is per cell or per meter or something else, because the data is only used as a proxy and will be normalized anyway. If there is no need to exclude extra areas for bioenergy crops, then make the 'bioNoGo' input map empty (all No Data values) or copy the general 'noGo' map into it.
 
-
+filename    | contents                          | data type| unit
+------------------------------------------------------------------------
+biomass.map | fraction of the maximum biomass a | scalar   | -
+              forest cell produces	
+bioNoGo.map | all areas that cannot be used by  | Boolean  | -
+              bioenergy crops in addition to 
+              noGo.map (can’t be changed = true)	
+cattle      | nr of cows and goats per area unit| scalar   | animals/area
+Density.map 
+cities.map  | whether or not a cell contains a  | Boolean  | -
+              city (city = true)	
+dem.map     | Digital Elevation Model of the	   | scalar   | meters
+              study area
+landuse.map | land use classes; all dynamic land| nominal  | -
+              use types must exhibit at least 
+              one cell in the initial land use 
+              map
+noGo.map    | all areas that cannot be changed  | Boolean  | -
+              and do NOT have a specific class
+              in the land use map (roads, water, 
+              nature areas, ....) 
+              (can’t be changed = true)	
+nullMask.map| value 0 for cells included in the | scalar   | -
+              study area and No Data for cells 
+              outside the study area
+popDensity  | nr of people per area unit        | scalar   | people/area
+.map	
+roads.map   | whether or not a main road is     | Boolean  | -
+              present in a cell (road = true)
+scYield.map | fraction of the maximum yield a   | scalar   | -
+              cell can reach for sugar cane
+water.map   | whether or not a river or water   | Boolean  | -
+              body is present in a cell 
+              (water = true)
+yield.map   | fraction of the maximum yield a   | scalar   | -
+              cell can reach for food crops and 
+              pasture
 
