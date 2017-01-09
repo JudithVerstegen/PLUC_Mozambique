@@ -9,24 +9,24 @@ Manual for land use change model in PCRaster Python
 Author: Judith Verstegen, January 27th 2011, edited on December 28th 2016
 
 
-1. Introduction
+1.	Introduction
 
 A land use change model of Mozambique was created in PCRaster Python. The aim of the model is to evaluate where bio energy crops can be cultivated without endangering food production now and in the near future when population and thus food crop and pasture areas will increase. It is possible to run the model with different land use classifications, suitability factors, model parameters, and even for a different region when required. This manual specifies the software requirements, outlines the model scheme, explains how to manage input data and parameter settings, shows how to run the model, and lists model outputs.
 
 
-2. Requirements
+2.	Requirements
 
 In order to run the model, installation of PCRaster Python is required. The installation guide and files can be found at http://pcraster.geo.uu.nl/getting-started/. The minimum requirement to use PCRaster Python is Python version 2.7 and Numpy version 1.8.
 
 
-3. Model description
+3.	Model description
 
 The main procedure of the model is the state transition function, the spatially explicit change in land use. This change is modelled in time steps of a year. It is driven by two factors: the demand of the population for food and wood, and the maximum potential yield of the land, defined by the country's technological state of the art in agriculture. The actual location of the expansion or contraction of the land use types is determined by suitability factors, like distance to cities and transport networks, current land use in the neighbourhood and location-specific yield due to characteristics of the soil. Areas not occupied by food production or reserved land use are available for bio energy crops.
 
 The model is constructed with the use of two PCRaster Python frameworks: the dynamic modelling framework and the Monte Carlo framework. These frameworks together form the schedule of the model that determines the order of execution of the implemented methods. Two separate classes exist in the model file: LandUse and LandUseType. The first keeps track of the land use map and carries out 'global' tasks, valid for the whole land use system. Methods for the individual land use types are implemented in the second class. For every dynamic land use type in the land use map an instance of this class is created. An important task of the land use type instances is the generation of a suitability map that indicates the appropriateness of a certain location to allocate land of the type. It can be specified by the user which land use type should use which suitability factors with which parameter values, as will be explained in the next chapter.
-	
 
-4. Inputs
+
+4.	Inputs
 
 The model is distributed as a compressed file (zip file). When unpacked, one will see it consists out of input maps, input time series, one legend file, and two Python files. Below it is explained where to edit what when one wants to run the model with different inputs.
 
@@ -68,30 +68,18 @@ yield.map | fraction of the maximum yield a cell can reach for food crops and pa
 
 Time series are structured in ascii files (extension .tss). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
 
-demand per land use type 
-
-11 
-
-model time with t0 = 2005 crops (=1) (ton/year) 
-
-crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) 
-
-nothing (=5) 
-
-grass (=6) 
-
-pasture (=7) (ton/year) 
-
-shrubs (=8) 
-
-excluded (=9) 
-
-urban (=10) 
-
-1	1517230	0 	14294510	 46620500	 0	0	1017512	0	0 	0	
-
-2	1600709	61695	14810098	45454988	0	0	1026875	0	0	0	
-
+	demand per land use type 
+	11 
+	model time with t0 = 2005 crops (=1) (ton/year) 
+	crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) 
+	nothing (=5) 
+	grass (=6) 
+	pasture (=7) (ton/year) 
+	shrubs (=8) 
+	excluded (=9) 
+	urban (=10) 
+	1	1517230	0 	14294510	 46620500	 0	0	1017512	0	0 	0	
+	2	1600709	61695	14810098	45454988	0	0	1026875	0	0	0	
 
 Currently, four time series are used: the lower limit of the expected demand, the upper limit of the expected demand, the maximum yield of land use types in the land use map, and the maximum yield of bioenergy crops. The maximum yield is provided per area unit. Furthermore, it does not matter whether yield is in kg, kcal or something else per area unit, as long as the unit of the numerator is the same as the unit of the demand. Make sure to use sufficient precision in the calibrated demand and maximum yield of the first time step; it is experienced that omitting some decimals can have profound effects. The range between upper and lower limit of the demand originates from uncertainty in population growth, self-sufficiency ratio and/or diet of the population. The easiest way to dismiss this uncertainty in a model run is to give the two files demandUp.tss and demandLow.tss the same contents.
 
@@ -152,12 +140,12 @@ when unknown or when the relation is not exponential
 6) Python dictionary with suitability of current land use for placing the new land use; e.g. 3 : 0.7 means that land use type 3 has a suitability of 0.7 for becoming the land use type that holds this suitability factor (types not specified will have no additional suitability due to factor 9); especially useful to give abandoned areas a higher suitability
 
 
-5. Running the model
+5.	Running the model
 
 When all maps and time series are present and all static, non-spatial inputs are correctly specified the model can be run by double clicking on the file LU_Moz.py. A command window will be appear and be present until the run is finished. Running the model once (indicated by setting the variable 'samples' to 1 in the Parameter.py file) will take approximately five minutes on a standard pc (timed on a 2 GHz processor with 4 GB RAM). When a Monte Carlo batch run is done (the variable 'samples' is much larger then 1) completion can take several hours.
 
 
-6. Outputs
+6.	Outputs
 
 All outputs of the model are maps in the PCRaster map format (extension .map). They can be viewed with the software Aguila. Two types of outputs are generated by the model. Outputs that are written to disk in each time step of each Monte Carlo sample (type 1) and outputs for each time step averaged over all samples (type 2). Consequently, when the model is run once, only outputs of type 1 are generated. An overview all outputs, their contents, output type, and data type is given in Table 3. Outputs of type 1 can be visualized with a command like:
 > aguila --scenarios='{1,2,3,4,5}' --timesteps=[1,26] --multi=1x5 filename
