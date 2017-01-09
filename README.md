@@ -67,7 +67,7 @@ yield.map | fraction of the maximum yield a cell can reach for food crops and pa
 Time series are structured in ascii files (extension .tss). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
 
  | | | | | | | | | | |
- - | - | - | - | - | - | - | - | - | - | - |
+ --- | --- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | --- | --- |
 demand per land use type | | | | | | | | | | |
 11 | | | | | | | | | | |
 model time with t0 = 2005 crops (=1) (ton/year) | | | | | | | | | | |
@@ -87,7 +87,7 @@ Currently, four time series are used: the lower limit of the expected demand, th
 A legend, given in the text file legendLU.txt, is used to attach to the output land use maps. An example of its outlook is given below.
 
  | |
- - | - |
+ --- | --- |
 -0 | landuse |
 1 | cropland |
 2 | cropland+grassland |
@@ -151,7 +151,7 @@ For a detailed description of visualization commands and options of the Graphica
 Table 3: Overview of model outputs
 
 filename | contents | output | type | data type |
-- | - | - | - | - |
+--- | --- | --- | --- | --- |
 eu | whether or not a cell is available for eucalyptus | 1 | Boolean |
 euPr | available area per province for eucalyptus (km2) | 1 | scalar |
 euSc | scalar of whether or not a cell is available for eucalyptus (used as input for output type 2, use eu output for visualization purposes) | 1 | scalar |
