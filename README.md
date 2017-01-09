@@ -18,7 +18,7 @@ A land use change model of Mozambique was created in PCRaster Python. The aim of
 2. Requirements
 --------------
 
-In order to run the model, installation of PCRaster Python is required. The installation guide and files can be found at http://pcraster.geo.uu.nl/getting-started/. The minimum requirement to use PCRaster Python is Python version 2.7 and Numpy version 1.8.
+In order to run the model, installation of PCRaster Python is required. PLCU Mozambique has been updated to be compatible with PCRaster version 4.1.0. The installation guide and files can be found at http://pcraster.geo.uu.nl/getting-started/. The minimum requirement to use PCRaster Python is Python version 2.7 and Numpy version 1.8.
 
 
 3. Model description
@@ -37,7 +37,7 @@ The model is distributed as a compressed file (zip file). When unpacked, one wil
 *Maps*
 
 Maps carry all spatially explicit data. Maps have to be provided according to the PCRaster map format (extension .map). A description how to convert ascii files to PCRaster maps can be found at
-http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. The current metadata of all maps is:
+http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. We have used the map projection Moznet UTM Zone 36S (EPSG:3036). The current PCRaster metadata of all maps is:
 
 variable | value |
 ----- | ----- |
