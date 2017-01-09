@@ -68,20 +68,30 @@ yield.map | fraction of the maximum yield a cell can reach for food crops and pa
 
 Time series are structured in ascii files (extension .tss). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
 
- | | | | | | | | | | |
- --- | --- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | --- | --- |
-demand per land use type | | | | | | | | | | |
-11 | | | | | | | | | | |
-model time with t0 = 2005 crops (=1) (ton/year) | | | | | | | | | | |
-crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) | | | | | | | | | | |
-nothing (=5) | | | | | | | | | | |
-grass (=6) | | | | | | | | | | |
-pasture (=7) (ton/year) | | | | | | | | | | |
-shrubs (=8) | | | | | | | | | | |
-excluded (=9) | | | | | | | | | | |
-urban (=10) | | | | | | | | | | |
-1 | 1517230	0 | 14294510 | 46620500 | 0 | 0 | 1017512 | 0 | 0 | 0 |		
-2 | 1600709 | 61695 | 14810098 | 45454988 | 0 | 0 | 1026875 | 0 | 0 | 0 |	
+demand per land use type 
+
+11 
+
+model time with t0 = 2005 crops (=1) (ton/year) 
+
+crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) 
+
+nothing (=5) 
+
+grass (=6) 
+
+pasture (=7) (ton/year) 
+
+shrubs (=8) 
+
+excluded (=9) 
+
+urban (=10) 
+
+1	1517230	0 	14294510	 46620500	 0	0	1017512	0	0 	0	
+
+2	1600709	61695	14810098	45454988	0	0	1026875	0	0	0	
+
 
 Currently, four time series are used: the lower limit of the expected demand, the upper limit of the expected demand, the maximum yield of land use types in the land use map, and the maximum yield of bioenergy crops. The maximum yield is provided per area unit. Furthermore, it does not matter whether yield is in kg, kcal or something else per area unit, as long as the unit of the numerator is the same as the unit of the demand. Make sure to use sufficient precision in the calibrated demand and maximum yield of the first time step; it is experienced that omitting some decimals can have profound effects. The range between upper and lower limit of the demand originates from uncertainty in population growth, self-sufficiency ratio and/or diet of the population. The easiest way to dismiss this uncertainty in a model run is to give the two files demandUp.tss and demandLow.tss the same contents.
 
@@ -110,8 +120,7 @@ The first line of the file indicates the contents (title) and every following li
 Two Python files are used. LU_Moz.py is the model itself and Parameters.py contains all static, non- spatial input variables and parameters, i.e. the ones not included in a map or time series. This last Python file can be edited when different inputs are required. Right click on the file and chose 'edit with IDLE' to open it. The file is assumed to be self-explanatory for most variables and parameters.
 5
  
-The specification  of  the  suitability  factors  for  the  land  use  types  needs  some  further explanation. An overview of all implemented suitability factors and their parameters is given in Table
-2.	Make sure that all necessary parameters are specified for all suitability factors that a land use type implements.
+The specification  of  the  suitability  factors  for  the  land  use  types  needs  some  further explanation. An overview of all implemented suitability factors and their parameters is given in Table 2. Make sure that all necessary parameters are specified for all suitability factors that a land use type implements.
 
 Table 2: Implemented suitability factors and their parameters
 
@@ -127,13 +136,19 @@ nr | description | parameter 1 | parameter 2 | parameter 3 | parameter 4 |
 8 | distance to forest edge | - | - | - | - |
 9 | current land use | suitability current lu 6 | - | - | - |
 
-Footnotes to Table 2
+Footnotes to Table 2:
+
 1) window length (in m.) in which neighbours are counted; e.g. 3000 for 3x3 window when cell length is 1000 m.
+
 2) direction of the distance function; 1 = positive; -1 = negative
+
 3) maximum distance of effect (in m.) of the distance function; e.g. 100000 for effect up to 100 cells away when cell length is 1000 m.
+
 4) friction in the distance function; used in e ^ friction * distance only for an exponential distance function; use 1
 when unknown or when the relation is not exponential
+
 5) type of distance function; 0 = linear; 1 = exponential; 2 = inversely proportional
+
 6) Python dictionary with suitability of current land use for placing the new land use; e.g. 3 : 0.7 means that land use type 3 has a suitability of 0.7 for becoming the land use type that holds this suitability factor (types not specified will have no additional suitability due to factor 9); especially useful to give abandoned areas a higher suitability
 
 
