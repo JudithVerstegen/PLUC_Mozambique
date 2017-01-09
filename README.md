@@ -156,8 +156,8 @@ For a detailed description of visualization commands and options of the Graphica
 
 Table 3: Overview of model outputs
 
-filename | contents | output | type | data type |
---- | --- | --- | --- | --- |
+filename | contents | output type | data type |
+--- | --- | --- | --- |
 eu | whether or not a cell is available for eucalyptus | 1 | Boolean |
 euPr | available area per province for eucalyptus (km2) | 1 | scalar |
 euSc | scalar of whether or not a cell is available for eucalyptus (used as input for output type 2, use eu output for visualization purposes) | 1 | scalar |
