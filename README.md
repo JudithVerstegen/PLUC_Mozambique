@@ -37,7 +37,7 @@ The model consists out of input maps, input time series, one legend file, and tw
 *Maps*
 
 Maps carry all spatially explicit data. Maps have to be provided according to the PCRaster map format (extension .map). A description how to convert ascii files to PCRaster maps can be found at
-http://www.carthago.nl/miracle/doc/AscGridtutorial.pdf. We have used the map projection Moznet UTM Zone 36S (EPSG:3036). The current PCRaster metadata of all maps is:
+under the asc2map command in the PCRaster documentation: http://pcraster.geo.uu.nl/support/documentation. We have used the map projection Moznet UTM Zone 36S (EPSG:3036). The current PCRaster metadata of all maps is:
 
 variable | value |
 ----- | ----- |
