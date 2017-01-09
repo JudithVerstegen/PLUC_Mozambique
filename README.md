@@ -32,7 +32,7 @@ The model is constructed with the use of two PCRaster Python frameworks: the dyn
 4. Inputs
 --------------
 
-The model is distributed as a compressed file (zip file). When unpacked, one will see it consists out of input maps, input time series, one legend file, and two Python files. Below it is explained where to edit what when one wants to run the model with different inputs.
+The model consists out of input maps, input time series, one legend file, and two Python files. Below it is explained where to edit what, when one wants to run the model with different inputs.
 
 *Maps*
 
