@@ -6,7 +6,7 @@ This is the PCRaster Land Use Change model (PLUC) for Mozambique, created in PCR
 
 Manual for land use change model in PCRaster Python
 
-Author: Judith Verstegen, January 27th 2011, edited on December 28th 2016
+Author: Judith Verstegen, January 27th 2011, edited for Github distribution in December 2016
 
 
 1. Introduction
