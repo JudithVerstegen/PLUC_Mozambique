@@ -66,18 +66,18 @@ yield.map | fraction of the maximum yield a cell can reach for food crops and pa
 *Time series*
 Time series are structured in ascii files (extension .tss). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
 
-| | | | | | | | | | |
-| - | - | - | - | - | - | - | - | - | - |
-demand per land use type | | | | | | | | | |
-11 | | | | | | | | | |
-model time with t0 = 2005 crops (=1) (ton/year) | | | | | | | | | |
-crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) | | | | | | | | | |
-nothing (=5) | | | | | | | | | |
-grass (=6) | | | | | | | | | |
-pasture (=7) (ton/year) | | | | | | | | | |
-shrubs (=8) | | | | | | | | | |
-excluded (=9) | | | | | | | | | |
-urban (=10) | | | | | | | | | |
+ | | | | | | | | | | |
+ - | - | - | - | - | - | - | - | - | - | - |
+demand per land use type | | | | | | | | | | |
+11 | | | | | | | | | | |
+model time with t0 = 2005 crops (=1) (ton/year) | | | | | | | | | | |
+crops grass (=2) (ton/year) crops pasture (=3) (ton/year) forest (=4) (ton/year) | | | | | | | | | | |
+nothing (=5) | | | | | | | | | | |
+grass (=6) | | | | | | | | | | |
+pasture (=7) (ton/year) | | | | | | | | | | |
+shrubs (=8) | | | | | | | | | | |
+excluded (=9) | | | | | | | | | | |
+urban (=10) | | | | | | | | | | |
 1 | 1517230	0 | 14294510 | 46620500 | 0 | 0 | 1017512 | 0 | 0 | 0 |		
 2 | 1600709 | 61695 | 14810098 | 45454988 | 0 | 0 | 1026875 | 0 | 0 | 0 |	
 
@@ -86,8 +86,8 @@ Currently, four time series are used: the lower limit of the expected demand, th
 *Legend file*
 A legend, given in the text file legendLU.txt, is used to attach to the output land use maps. An example of its outlook is given below.
 
-| | |
-| - | - |
+ | |
+ - | - |
 -0 | landuse |
 1 | cropland |
 2 | cropland+grassland |
@@ -106,19 +106,73 @@ The first line of the file indicates the contents (title) and every following li
 Two Python files are used. LU_Moz.py is the model itself and Parameters.py contains all static, non- spatial input variables and parameters, i.e. the ones not included in a map or time series. This last Python file can be edited when different inputs are required. Right click on the file and chose 'edit with IDLE' to open it. The file is assumed to be self-explanatory for most variables and parameters.
 5
  
-However,  specification  of  the  suitability  factors  for  the  land  use  types  needs  some  further explanation. An overview of all implemented suitability factors and their parameters is given in Table
+The specification  of  the  suitability  factors  for  the  land  use  types  needs  some  further explanation. An overview of all implemented suitability factors and their parameters is given in Table
 2.	Make sure that all necessary parameters are specified for all suitability factors that a land use type implements.
 
 Table 2: Implemented suitability factors and their parameters
 
 nr | description | parameter 1 | parameter 2 | parameter 3 | parameter 4 |
 ---- | ---- | ---- | ---- | ---- | ---- | 
-1 | nr of neighbours same class | window length1 | - | - | - |
-2 | distance to roads | direction2 | max distance effect3 | friction4 | relation type5|
-3 | distance to water | direction2 | max distance effect3 | friction4 | relation type5 |
-4 | distance to cities | direction2 | max distance effect3 | friction4 | relation type5 |
-5 | yield | friction4 | - | - | - | 
-6 | population density | direction2 | - | - | - | 
-7 | cattle density | direction2 | - | - | - |
+1 | nr of neighbours same class | window length 1 | - | - | - |
+2 | distance to roads | direction 2 | max distance effect 3 | friction 4 | relation type 5|
+3 | distance to water | direction 2 | max distance effect 3 | friction 4 | relation type 5 |
+4 | distance to cities | direction 2 | max distance effect 3 | friction 4 | relation type 5 |
+5 | yield | friction 4 | - | - | - | 
+6 | population density | direction 2 | - | - | - | 
+7 | cattle density | direction 2 | - | - | - |
 8 | distance to forest edge | - | - | - | - |
-9 | current land use | suitability current lu6 | -	 | - | - |
+9 | current land use | suitability current lu 6 | - | - | - |
+
+Footnotes to Table 2
+1) window length (in m.) in which neighbours are counted; e.g. 3000 for 3x3 window when cell length is 1000 m.
+2) direction of the distance function; 1 = positive; -1 = negative
+3) maximum distance of effect (in m.) of the distance function; e.g. 100000 for effect up to 100 cells away when cell length is 1000 m.
+4) friction in the distance function; used in e ^ friction * distance only for an exponential distance function; use 1
+when unknown or when the relation is not exponential
+5) type of distance function; 0 = linear; 1 = exponential; 2 = inversely proportional
+6) Python dictionary with suitability of current land use for placing the new land use; e.g. 3 : 0.7 means that land use type 3 has a suitability of 0.7 for becoming the land use type that holds this suitability factor (types not specified will have no additional suitability due to factor 9); especially useful to give abandoned areas a higher suitability
+
+
+5. Running the model
+
+When all maps and time series are present and all static, non-spatial inputs are correctly specified the model can be run by double clicking on the file LU_Moz.py. A command window will be appear and be present until the run is finished. Running the model once (indicated by setting the variable 'samples' to 1 in the Parameter.py file) will take approximately five minutes on a standard pc (timed on a 2 GHz processor with 4 GB RAM). When a Monte Carlo batch run is done (the variable 'samples'
+>> 1) completion can take several hours.
+
+
+6. Outputs
+
+All outputs of the model are maps in the PCRaster map format (extension .map). They can be viewed with the software Aguila. Two types of outputs are generated by the model. Outputs that are written to disk in each time step of each Monte Carlo sample (type 1) and outputs for each time step averaged over all samples (type 2). Consequently, when the model is run once, only outputs of type 1 are generated. An overview all outputs, their contents, output type, and data type is given in Table 3. Outputs of type 1 can be visualized with a command like:
+> aguila --scenarios='{1,2,3,4,5}' --timesteps=[1,26] --multi=1x5 filename
+Outputs of type 2 can be visualized with a command like:
+> aguila --timesteps=[1,26] filename
+
+For a detailed description of visualization commands and options of the Graphical User Interface the user is referred to the Aguila manual: http://pcraster.sourceforge.net/Aguila/trunk/Manual.html.
+
+Table 3: Overview of model outputs
+
+filename | contents | output | type | data type |
+- | - | - | - | - |
+eu | whether or not a cell is available for eucalyptus | 1 | Boolean |
+euPr | available area per province for eucalyptus (km2) | 1 | scalar |
+euSc | scalar of whether or not a cell is available for eucalyptus (used as input for output type 2, use eu output for visualization purposes) | 1 | scalar |
+euTo | total available area for eucalyptus (km2) | 1 | scalar |
+eY | potential bioenergy yield for eucalyptus | 1 | scalar |
+eYPr | potential bioenergy yield per province for eucalyptus (non-spatial) | 1 | scalar |
+eYTo | total potential bioenergy yield for eucalyptus (non-spatial) | 1 | scalar |
+landUse | land use | 1 | nominal |
+sc | whether or not a cell is available for sugar cane | 1 | Boolean |
+scPr | available area for a province for sugar cane (km2) | 1 | scalar |
+scSc | scalar of whether or not a cell is available for sugar cane (used as input for output type 2, use sc output for visualization purposes) | 1 | scalar |
+scTo | total available area for sugar cane (km2) | 1 | scalar |
+sY | potential bioenergy yield per km2 for sugar cane | 1 | scalar |
+sYPr | potential bioenergy yield per km2 for a province for sugar cane | 1 | scalar |
+sYTo | potential bioenergy yield per km2 for sugar cane for the whole country (non-spatial) | 1 | scalar |
+euSc/scSc-ave 7 | probability that is cell is available for the bioenergy crop type | 2 | scalar |
+euSc/scSc-err 7 | relative error (standard deviation / mean) of each cell for the availability of the bioenergy crop type | 2 | scalar |
+euSc/scSc-var 7 | variance of each cell for the availability of the bioenergy crop type | 2 | scalar |
+
+Footnote 7: These three outputs can in principle be generated for all scalar outputs of type 1.
+
+Note that output will be overwritten when the model is run again, so make sure to copy all output somewhere else when it is needed again. 
+
+
