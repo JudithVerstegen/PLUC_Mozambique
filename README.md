@@ -1,6 +1,6 @@
 # PLUC_Mozambique
 
-This is the PCRaster Land Use Change model (PLUC) for Mozambique, created in PCRaster Python. Results of the model are published in Verstegen et al. 2012 and van der Hilst et al. 2012.
+This is the PCRaster Land Use Change model (PLUC) for Mozambique, created in [PCRaster](http://pcraster.geo.uu.nl/) Python. Results of the model are published in Verstegen et al. 2012 and van der Hilst et al. 2012.
 
 
 
@@ -60,7 +60,7 @@ cattleDensity.map | nr of cows and goats per area unit | scalar | animals/area |
 cities.map | whether or not a cell contains a city (city = true) | Boolean | - |               	
 dem.map | Digital Elevation Model of the study area | scalar | meters |
 landuse.map | land use classes; all dynamic land use types must exhibit at least one cell in the initial land use map | nominal | - |
-noGo.map    | all areas that cannot be changed and do NOT have a specific class in the land use map (roads, water, nature areas, ....) (can’t be changed = true) | Boolean  | - |
+noGo.map    | all areas that cannot be changed and do NOT have a specific class in the land use map (roads, water, nature areas, ....) (canï¿½t be changed = true) | Boolean  | - |
 nullMask.map | value 0 for cells included in the study area and No Data for cells outside the study area | scalar | - |
 popDensity.map | nr of people per area unit | scalar | people/area |
 roads.map | whether or not a main road is present in a cell (road = true) | Boolean | - |
