@@ -18,7 +18,7 @@ A land use change model of Mozambique was created in PCRaster Python. The aim of
 2. Requirements
 --------------
 
-In order to run the model, installation of PCRaster Python is required. PLCU Mozambique has been updated to be compatible with PCRaster version 4.1.0. The installation guide and files can be found at http://pcraster.geo.uu.nl/getting-started/. The minimum requirement to use PCRaster Python is Python version 2.7 and Numpy version 1.8.
+In order to run the model, installation of PCRaster Python is required. PLCU Mozambique has been updated to be compatible with PCRaster version `4.1.0`. The installation guide and files can be found at http://pcraster.geo.uu.nl/getting-started/. The minimum requirement to use PCRaster Python is [Python](https://www.numpy.org/) version `2.7` and [Numpy](http://www.numpy.org/) version `1.8`.
 
 
 3. Model description
@@ -26,7 +26,7 @@ In order to run the model, installation of PCRaster Python is required. PLCU Moz
 
 The main procedure of the model is the state transition function, the spatially explicit change in land use. This change is modelled in time steps of a year. It is driven by two factors: the demand of the population for food and wood, and the maximum potential yield of the land, defined by the country's technological state of the art in agriculture. The actual location of the expansion or contraction of the land use types is determined by suitability factors, like distance to cities and transport networks, current land use in the neighbourhood and location-specific yield due to characteristics of the soil. Areas not occupied by food production or reserved land use are available for bio energy crops.
 
-The model is constructed with the use of two PCRaster Python frameworks: the dynamic modelling framework and the Monte Carlo framework. These frameworks together form the schedule of the model that determines the order of execution of the implemented methods. Two separate classes exist in the model file: LandUse and LandUseType. The first keeps track of the land use map and carries out 'global' tasks, valid for the whole land use system. Methods for the individual land use types are implemented in the second class. For every dynamic land use type in the land use map an instance of this class is created. An important task of the land use type instances is the generation of a suitability map that indicates the appropriateness of a certain location to allocate land of the type. It can be specified by the user which land use type should use which suitability factors with which parameter values, as will be explained in the next chapter.
+The model is constructed with the use of two PCRaster Python frameworks: the dynamic modelling framework and the Monte Carlo framework. These frameworks together form the schedule of the model that determines the order of execution of the implemented methods. Two separate classes exist in the model file `LU_Moz.py`: `LandUse` and `LandUseType`. The first keeps track of the land use map and carries out 'global' tasks, valid for the whole land use system. Methods for the individual land use types are implemented in the second class. For every dynamic land use type in the land use map an instance of this class is created. An important task of the land use type instances is the generation of a suitability map that indicates the appropriateness of a certain location to allocate land of the type. It can be specified by the user which land use type should use which suitability factors with which parameter values, as will be explained in the next chapter.
 
 
 4. Inputs
@@ -36,8 +36,7 @@ The model consists out of input maps, input time series, one legend file, and tw
 
 *Maps*
 
-Maps carry all spatially explicit data. Maps have to be provided according to the PCRaster map format (extension .map). A description how to convert ascii files to PCRaster maps can be found at
-under the asc2map command in the PCRaster documentation: http://pcraster.geo.uu.nl/support/documentation. We have used the map projection Moznet UTM Zone 36S (EPSG:3036). The current PCRaster metadata of all maps is:
+Maps carry all spatially explicit data. Maps have to be provided according to the PCRaster map format (extension `.map`). A description how to convert ascii files to PCRaster maps can be found under the `asc2map` command in the PCRaster documentation: http://pcraster.geo.uu.nl/support/documentation. We have used the map projection Moznet UTM Zone 36S ([EPSG:3036](https://epsg.io/3036)). The current PCRaster metadata of all maps is:
 
 variable | value |
 ----- | ----- |
@@ -48,7 +47,7 @@ yllcorner | 7003459 |
 cellsize | 1000 | 
 NODATA_value | -9999 |
 
-Maps can be replaced by new maps as long as one keeps the extent, filename, data type (value scale) and measurement unit the same. It is also possible to change the study area (and thus extent), but all maps need to have the same extent. An overview of all input maps and their characteristics is given in Table 1. Note that the unit for cattle and population density states 'per area'. This means it does not matter whether this is per cell or per meter or something else, because the data is only used as a proxy and will be normalized anyway. If there is no need to exclude extra areas for bioenergy crops, then make the 'bioNoGo' input map empty (all No Data values) or copy the general 'noGo' map into it.
+Maps can be replaced by new maps as long as one keeps the extent, filename, data type (value scale) and measurement unit the same. It is also possible to change the study area (and thus extent), but all maps need to have the same extent. An overview of all input maps and their characteristics is given in Table 1. Note that the unit for cattle and population density states 'per area'. This means it does not matter whether this is per cell or per meter or something else, because the data is only used as a proxy and will be normalized anyway. If there is no need to exclude extra areas for bioenergy crops, then make the 'bioNoGo' input map empty (all `No Data` values) or copy the general 'noGo' map into it.
 
 Table 1: Characteristics of input maps
 
@@ -60,8 +59,8 @@ cattleDensity.map | nr of cows and goats per area unit | scalar | animals/area |
 cities.map | whether or not a cell contains a city (city = true) | Boolean | - |               	
 dem.map | Digital Elevation Model of the study area | scalar | meters |
 landuse.map | land use classes; all dynamic land use types must exhibit at least one cell in the initial land use map | nominal | - |
-noGo.map    | all areas that cannot be changed and do NOT have a specific class in the land use map (roads, water, nature areas, ....) (can�t be changed = true) | Boolean  | - |
-nullMask.map | value 0 for cells included in the study area and No Data for cells outside the study area | scalar | - |
+noGo.map    | all areas that cannot be changed and do NOT have a specific class in the land use map (roads, water, nature areas, ....) (cannot be changed = true) | Boolean  | - |
+nullMask.map | value `0` for cells included in the study area and `No Data` for cells outside the study area | scalar | - |
 popDensity.map | nr of people per area unit | scalar | people/area |
 roads.map | whether or not a main road is present in a cell (road = true) | Boolean | - |
 scYield.map | fraction of the maximum yield a cell can reach for sugar cane | scalar | - |
@@ -70,7 +69,7 @@ yield.map | fraction of the maximum yield a cell can reach for food crops and pa
 
 *Time series*
 
-Time series are structured in ascii files (extension .tss). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
+Time series are structured in ascii files (extension `.tss`). They consist of a header and a body. The header specifies the type of information provided, the number of columns in the body and the contents of those columns. The header thus contains as many lines as the nr of land use classes + 3. The body, i.e. data frame, contains the time steps and values for every land use class belonging to these time steps. An example of the header and first two time steps of the demand is:
 
 	demand per land use type 
 	11 
@@ -85,11 +84,18 @@ Time series are structured in ascii files (extension .tss). They consist of a he
 	1	1517230	0 	14294510	 46620500	 0	0	1017512	0	0 	0	
 	2	1600709	61695	14810098	45454988	0	0	1026875	0	0	0	
 
-Currently, four time series are used: the lower limit of the expected demand, the upper limit of the expected demand, the maximum yield of land use types in the land use map, and the maximum yield of bioenergy crops. The maximum yield is provided per area unit. Furthermore, it does not matter whether yield is in kg, kcal or something else per area unit, as long as the unit of the numerator is the same as the unit of the demand. Make sure to use sufficient precision in the calibrated demand and maximum yield of the first time step; it is experienced that omitting some decimals can have profound effects. The range between upper and lower limit of the demand originates from uncertainty in population growth, self-sufficiency ratio and/or diet of the population. The easiest way to dismiss this uncertainty in a model run is to give the two files demandUp.tss and demandLow.tss the same contents.
+Currently, four time series are used:
+
+- the lower limit of the expected demand,
+- the upper limit of the expected demand,
+- the maximum yield of land use types in the land use map, and 
+- the maximum yield of bioenergy crops.
+
+The maximum yield is provided per area unit. Furthermore, it does not matter whether yield is in kg, kcal or something else per area unit, as long as the unit of the numerator is the same as the unit of the demand. Make sure to use sufficient precision in the calibrated demand and maximum yield of the first time step; it is experienced that omitting some decimals can have profound effects. The range between upper and lower limit of the demand originates from uncertainty in population growth, self-sufficiency ratio and/or diet of the population. The easiest way to dismiss this uncertainty in a model run is to give the two files `demandUp.tss` and `demandLow.tss` the same contents.
 
 *Legend file*
 
-A legend, given in the text file legendLU.txt, is used to attach to the output land use maps. An example of its outlook is given below.
+A legend, given in the text file `legendLU.txt`, is used to attach to the output land use maps. An example of its outlook is given below.
 
 	-0 landuse
 	1 cropland
@@ -107,8 +113,7 @@ The first line of the file indicates the contents (title) and every following li
 
 *Python files*
 
-Two Python files are used. LU_Moz.py is the model itself and Parameters.py contains all static, non- spatial input variables and parameters, i.e. the ones not included in a map or time series. This last Python file can be edited when different inputs are required. Right click on the file and chose 'edit with IDLE' to open it. The file is assumed to be self-explanatory for most variables and parameters.
-5
+Two Python files are used. `LU_Moz.py` is the model itself and `Parameters.py` contains all static, non- spatial input variables and parameters, i.e. the ones not included in a map or time series. The latter Python file can be edited when different inputs are required, for example with [IDLE](https://docs.python.org/2/library/idle.html). The file is assumed to be self-explanatory for most variables and parameters.
  
 The specification  of  the  suitability  factors  for  the  land  use  types  needs  some  further explanation. An overview of all implemented suitability factors and their parameters is given in Table 2. Make sure that all necessary parameters are specified for all suitability factors that a land use type implements.
 
@@ -128,13 +133,12 @@ nr | description | parameter 1 | parameter 2 | parameter 3 | parameter 4 |
 
 Footnotes to Table 2:
 
-1.	window length (in m.) in which neighbours are counted; e.g. 3000 for 3x3 window when cell length is 1000 m.
-2.	direction of the distance function; 1 = positive; -1 = negative
-3.	maximum distance of effect (in m.) of the distance function; e.g. 100000 for effect up to 100 cells away when cell length is 1000 m.
-4.	friction in the distance function; used in e ^ friction * distance only for an exponential distance function; use 1
-when unknown or when the relation is not exponential
-5.	type of distance function; 0 = linear; 1 = exponential; 2 = inversely proportional
-6.	Python dictionary with suitability of current land use for placing the new land use; e.g. 3 : 0.7 means that land use type 3 has a suitability of 0.7 for becoming the land use type that holds this suitability factor (types not specified will have no additional suitability due to factor 9); especially useful to give abandoned areas a higher suitability
+1. window length (in m.) in which neighbours are counted; e.g. `3000` for `3x3` window when cell length is 1000 m.
+1. direction of the distance function; `1` = positive; `-1` = negative
+1. maximum distance of effect (in `m`) of the distance function; e.g. `100000` for effect up to 100 cells away when cell length is 1000 m.
+1. friction in the distance function; used in `e ^ friction * distance` only for an exponential distance function; use `1` when unknown or when the relation is not exponential
+1. type of distance function; `0` = linear; `1` = exponential; `2` = inversely proportional
+1. Python dictionary with suitability of current land use for placing the new land use; e.g. `3 : 0.7` means that land use type `3` has a suitability of `0.7` for becoming the land use type that holds this suitability factor (types not specified will have no additional suitability due to factor `9`); especially useful to give abandoned areas a higher suitability
 
 
 5. Running the model
@@ -142,11 +146,19 @@ when unknown or when the relation is not exponential
 
 When all maps and time series are present and all static, non-spatial inputs are correctly specified the model can be run by double clicking on the file LU_Moz.py. A command window will be appear and be present until the run is finished. Running the model once (indicated by setting the variable 'samples' to 1 in the Parameter.py file) will take approximately five minutes on a standard pc (timed on a 2 GHz processor with 4 GB RAM). When a Monte Carlo batch run is done (the variable 'samples' is much larger then 1) completion can take several hours.
 
+```bash
+cd model/
+python2 LU_Moz.py
+```
 
 6. Outputs
 ----------------
 
-All outputs of the model are maps in the PCRaster map format (extension .map). They can be viewed with the software Aguila. Two types of outputs are generated by the model. Outputs that are written to disk in each time step of each Monte Carlo sample (type 1) and outputs for each time step averaged over all samples (type 2). Consequently, when the model is run once, only outputs of type 1 are generated. An overview all outputs, their contents, output type, and data type is given in Table 3. Outputs of type 1 can be visualized with a command like:
+All outputs of the model are maps in the PCRaster map format (extension `.map`). They can be viewed with the software [Aguila](http://pcraster.geo.uu.nl/projects/developments/aguila/).
+
+Two types of outputs are generated by the model. Outputs that are written to disk in each time step of each Monte Carlo sample (type 1) and outputs for each time step averaged over all samples (type 2). Consequently, when the model is run once, only outputs of type 1 are generated. An overview all outputs, their contents, output type, and data type is given in Table 3.
+
+Outputs of type 1 can be visualized with a command like:
 > aguila --scenarios='{1,2,3,4,5}' --timesteps=[1,26] --multi=1x5 filename
 
 Outputs of type 2 can be visualized with a command like:
