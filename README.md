@@ -181,4 +181,8 @@ Footnote 7: These three outputs can in principle be generated for all scalar out
 
 Note that output will be overwritten when the model is run again, so make sure to copy all output somewhere else when it is needed again. 
 
+*Update July 2017*
+
+Since July 2017, the model can create movies (mp4 files) as output. The first movie is land use change for a single Monte Carlo sample and matches Figure 2 in the article (http://www.sciencedirect.com/science/article/pii/S0198971511000883#f0010). The second movie is the availability of land for eucalyptus and matches Figure 5 in the article (http://www.sciencedirect.com/science/article/pii/S0198971511000883#f0025). This one is only created when the model is run stochastically, i.e. with more than one Monte Carlo sample. For this to work you need to install ffmpeg and the matplotlib python library.
+
 
