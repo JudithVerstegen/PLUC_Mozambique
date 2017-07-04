@@ -19,7 +19,6 @@ timesteps = Parameters.getNrTimesteps()
 samples = Parameters.getNrSamples()
 init_year = 2005
 fn1 = 'euSc-ave'
-fn2 = 'scSc-ave'
 legend_loc = (1.01,0.25)# Moz right bottom
 
 ############
