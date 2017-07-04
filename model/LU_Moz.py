@@ -865,7 +865,7 @@ class LandUseChangeModel(DynamicModel, MonteCarloModel):
   def postmcloop(self):
     print '\nrunning postmcloop...'
     print '...making movie of land use for 1 sample...'
-    command = "python land_use_movie.py"
+    command = "python movie_land_use.py"
     os.system(command)
     if int(self.nrSamples()) > 1:
       ## Stochastic variables for which mean, var and percentiles are needed
@@ -877,6 +877,9 @@ class LandUseChangeModel(DynamicModel, MonteCarloModel):
       mcaveragevariance(names, sampleNumbers, timeSteps)
       names = ['eY', 'eYPr', 'eYTo']
       #mcpercentiles(names, percentiles, sampleNumbers, timeSteps)
+      print '...making movie of availability...'
+      command = "python movie_availability.py"
+      os.system(command)
 
     print '\n...done'
 

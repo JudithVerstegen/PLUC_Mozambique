@@ -1,3 +1,8 @@
+"""Make an MP4 file of the output of the LUC model of Mozambique
+Judith Verstegen, 2017-07-04
+
+"""
+
 from matplotlib import animation
 from matplotlib import colors as cls
 from matplotlib import pyplot as plt
@@ -13,15 +18,15 @@ import Parameters
 timesteps = Parameters.getNrTimesteps()
 init_year = 2005
 fn = 'landUse'
-list_all_colors = {0:'White', 1:'Yellow', 2:'GreenYellow', 3:'Pink', \
-                   4:'DarkGreen', 6:'MediumSeaGreen', 7:'Purple', \
-                   8:'Olive', 9:'LightGray', 10:'Red', 98:'Cornsilk', \
-                   99:'Cornsilk'}
+list_all_colors = {0:'White', 1:'Red', 2:'Yellow', 3:'Lime', \
+                   4:'Cyan', 6:'Blue', 7:'Fuchsia', \
+                   8:'Gainsboro', 9:'Green', 10:'Orange', \
+                   98:'Purple', 99:'MidnightBlue'}
 list_all_names = {1:'cropland', 2:'cropland with \ngrassland', \
                   3:'cropland with \npasture', 4:'forest', \
                    6:'grassland', 7:'pasture', \
                    8:'shrubland', 9:'preserved', 10:'urban',
-                  99: 'abandoned or \ndeforested'}
+                  98: 'deforested', 99: 'abandoned'}
 legend_loc = (1.01,0.25)# Moz right bottom
 
 ############
@@ -39,8 +44,7 @@ data = pcr2numpy(amap, 0)
 
 # create custom color map
 colorlist = []
-##numberlist = []
-for i in range(0, np.max(data) + 1):
+for i in range(0, np.max(np.array(list_all_names.keys())) + 1):
     if i in list_all_colors:
         colorlist.append(list_all_colors.get(i))     
     else:
@@ -52,18 +56,18 @@ plt.axis('off')
 # making color map
 # and normalization scheme
 cmap_long = cls.ListedColormap(colorlist, name='long')
-norm_without_mv = cls.Normalize(vmin=0, vmax=np.max(data))
+norm_without_mv = cls.Normalize(vmin=0, \
+                    vmax=np.max(np.array(list_all_names.keys())))
 # create the legend
 p = []
 s = []
 # loop over reversed list for ascending order
-for nr in list_all_names.keys()[::-1]:
+for nr in list_all_names.keys():#[::-1]:
   p.append(plt.Circle((0, 0), radius=3, lw=0, fc=list_all_colors[nr]))
   s.append(list_all_names[nr])
 leg = axarr.legend(p, s, loc='right', bbox_to_anchor=legend_loc,\
           prop={'size':9}, ncol=1, fancybox=True, borderpad=0.2)
-title = axarr.text(0.05, 1, '', \
-                   transform=axarr.transAxes)
+title = axarr.text(0.05, 1, '', transform=axarr.transAxes)
 year = axarr.text(0.05, 0.95, '', transform=axarr.transAxes)
 
 # use imshow to plot the raster over time
@@ -91,5 +95,5 @@ def animate(i):
 im_ani = animation.FuncAnimation(f, animate, interval=300, \
                                    blit=True, frames = timesteps,\
                                    init_func=init)
-im_ani.save('land_use.mp4', dpi=300, metadata={'artist':'Judith Verstegen'})
+im_ani.save('movie_' + fn + '.mp4', dpi=300, metadata={'artist':'Judith Verstegen'})
 #plt.show()
