@@ -1,9 +1,9 @@
-from matplotlib import animation
 """Make an MP4 file of the output of the LUC model of Mozambique
 Judith Verstegen, 2017-07-04
 
 """
 
+from matplotlib import animation
 from matplotlib import colors as cls
 from matplotlib import pyplot as plt
 import numpy as np
