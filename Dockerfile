@@ -30,9 +30,6 @@ LABEL version=1
 WORKDIR /pluc
 COPY model/ .
 
-# https://stackoverflow.com/questions/2801882/generating-a-png-with-matplotlib-when-display-is-undefined
-RUN touch matplotlibrc && echo "backend : Agg" >> matplotlibrc
-
 ENTRYPOINT ["python"]
 CMD ["LU_Moz.py"]
 
@@ -46,7 +43,7 @@ CMD ["LU_Moz.py"]
 #
 ## 3. Extract videos from container
 # $ docker cp lu-moz:/pluc/movie_euSc-ave.mp4 movie_euSc-ave.mp4
-# $ daniel@gin-nuest:~/git/PLUC_Mozambique$ docker cp lu-moz:/pluc/movie_landUse.mp4 movie_landUse.mp4
+# $ docker cp lu-moz:/pluc/movie_landUse.mp4 movie_landUse.mp4
 #
 ## 4. Run Docker image with own parameters
 # $ docker run -it --rm -v $(pwd)/test/my_params.py:/pluc/Parameters.py pcraster-pluc
