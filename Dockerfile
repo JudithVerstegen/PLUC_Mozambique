@@ -29,6 +29,27 @@ LABEL version=1
 
 WORKDIR /pluc
 COPY model/ .
+COPY README.md README.md
+
+ARG VERSION=dev
+ARG VCS_URL
+ARG VCS_REF
+ARG BUILD_DATE
+
+# Metadata http://label-schema.org/rc1/
+LABEL org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
+      org.label-schema.url="http://o2r.info" \
+      org.label-schema.name="PLUC Mozambique" \
+      org.label-schema.description="PCRaster Land Use Change model (PLUC) for Mozambique, created in PCRaster (http://pcraster.geo.uu.nl/) in Python. \
+      Results of the model are published in Verstegen et al. 2012 and van der Hilst et al. 2012." \
+      org.label-schema.usage="/pluc/README.md" \
+      org.label-schema.version=$VERSION \
+      org.label-schema.vcs-url=$VCS_URL \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.schema-version="rc1" \
+      org.label-schema.docker.cmd="docker run -it --name lu-moz pcraster-pluc"
+
 
 ENTRYPOINT ["python"]
 CMD ["LU_Moz.py"]

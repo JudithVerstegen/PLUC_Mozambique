@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+VERSION=$(git rev-parse --short HEAD)
+echo Add version tag using $VERSION
+
+docker tag $IMAGE_NAME $DOCKER_REPO:$VERSION
+docker push $DOCKER_REPO:$VERSION
