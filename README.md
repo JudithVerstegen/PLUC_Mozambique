@@ -1,12 +1,11 @@
 # PLUC_Mozambique
 
-This is the PCRaster Land Use Change model (PLUC) for Mozambique, created in [PCRaster](http://pcraster.geo.uu.nl/) Python. Results of the model are published in Verstegen et al. 2012 and van der Hilst et al. 2012.
-
+This is the PCRaster Land Use Change model (PLUC) for Mozambique, created in [PCRaster](http://pcraster.geo.uu.nl/) Python. Results of the model are published in [Verstegen et al. 2012](https://doi.org/10.1016%2Fj.compenvurbsys.2011.08.003) and [van der Hilst et al. 2012](https://doi.org/10.1111/j.1757-1707.2011.01147.x).
 
 
 Manual for land use change model in PCRaster Python
 
-Author: Judith Verstegen, January 27th 2011, edited for Github distribution in December 2016
+Author: Judith Verstegen, January 27th 2011, edited for [GitHub distribution](https://github.com/JudithVerstegen/PLUC_Mozambique) in December 2016
 
 
 1. Introduction
