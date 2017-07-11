@@ -6,6 +6,7 @@ Judith Verstegen, 2017-07-04
 from matplotlib import animation
 from matplotlib import colors as cls
 from matplotlib import pyplot as plt
+plt.switch_backend('agg')
 import numpy as np
 import os
 from pcraster import *
@@ -47,7 +48,7 @@ year = axarr.text(0.05, 0.95, '', transform=axarr.transAxes)
 
 # use imshow to plot the raster over time
 # in two functions for the animation
-def init():
+def init_movie():
     im = axarr.imshow(data, cmap='gist_rainbow', animated=True)
     cb = plt.colorbar(im, spacing='proportional')
     return im, year, title
@@ -68,8 +69,8 @@ def animate(i):
     return im, year, title
 
 im_ani = animation.FuncAnimation(f, animate, interval=300, \
-                                   blit=True, frames = timesteps,\
-                                   init_func=init)
+                                   blit=False, frames = timesteps,\
+                                   init_func=init_movie)
 im_ani.save('movie_' + fn1 + '.mp4', dpi=300, \
             metadata={'artist':'Judith Verstegen'})
 #plt.show()

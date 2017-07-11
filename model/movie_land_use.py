@@ -6,6 +6,7 @@ Judith Verstegen, 2017-07-04
 from matplotlib import animation
 from matplotlib import colors as cls
 from matplotlib import pyplot as plt
+plt.switch_backend('agg')
 import numpy as np
 import os
 from pcraster import *
@@ -27,7 +28,7 @@ list_all_names = {1:'cropland', 2:'cropland with \ngrassland', \
                    6:'grassland', 7:'pasture', \
                    8:'shrubland', 9:'preserved', 10:'urban',
                   98: 'deforested', 99: 'abandoned'}
-legend_loc = (1.01,0.25)# Moz right bottom
+legend_loc = (0.7,0.3)# Moz right bottom
 
 ############
 ### MAIN ###
@@ -66,7 +67,8 @@ for nr in list_all_names.keys():#[::-1]:
   p.append(plt.Circle((0, 0), radius=3, lw=0, fc=list_all_colors[nr]))
   s.append(list_all_names[nr])
 leg = axarr.legend(p, s, loc='right', bbox_to_anchor=legend_loc,\
-          prop={'size':9}, ncol=1, fancybox=True, borderpad=0.2)
+                   prop={'size':8}, ncol=1, fancybox=True,\
+                   borderpad=0.2, bbox_transform=f.transFigure)
 title = axarr.text(0.05, 1, '', transform=axarr.transAxes)
 year = axarr.text(0.05, 0.95, '', transform=axarr.transAxes)
 
@@ -93,7 +95,7 @@ def animate(i):
     return im, leg, year, title
 
 im_ani = animation.FuncAnimation(f, animate, interval=300, \
-                                   blit=True, frames = timesteps,\
+                                   blit=False, frames = timesteps,\
                                    init_func=init)
 im_ani.save('movie_' + fn + '.mp4', dpi=300, metadata={'artist':'Judith Verstegen'})
 #plt.show()
