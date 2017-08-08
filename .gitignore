@@ -3,3 +3,4 @@
 model/1/**
 .vscode
 *.mp4
+test/my_params.py

@@ -54,21 +54,4 @@ LABEL org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
 ENTRYPOINT ["python"]
 CMD ["LU_Moz.py"]
 
-### Reproduce with container:
-#
-## 1. Build Docker image
-# $ docker build --tag pcraster-pluc .
-#
-## 2. Run Docker image
-# $ docker run -it --name lu-moz pcraster-pluc
-#
-## 3. Extract videos from container
-# $ docker cp lu-moz:/pluc/movie_euSc-ave.mp4 movie_euSc-ave.mp4
-# $ docker cp lu-moz:/pluc/movie_landUse.mp4 movie_landUse.mp4
-#
-## 4. Run Docker image with own parameters
-# $ docker run -it --rm -v $(pwd)/test/my_params.py:/pluc/Parameters.py pcraster-pluc
-#
-# Optional
-# - linter: $ docker run -it --rm --privileged -v $(pwd):/root/ projectatomic/dockerfile-lint dockerfile_lint
-# - bash inside container (for inspection, bugfixing): $ docker run -it --rm --entrypoint /bin/bash pcraster-pluc
+# lint after update: $ docker run -it --rm --privileged -v $(pwd):/root/ projectatomic/dockerfile-lint dockerfile_lint

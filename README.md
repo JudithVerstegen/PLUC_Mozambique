@@ -191,9 +191,68 @@ euSc/scSc-var<sup>7</sup> | variance of each cell for the availability of the bi
 Footnote 7: These three outputs can in principle be generated for all scalar outputs of type 1.
 
 Note that output will be overwritten when the model is run again, so make sure to copy all output somewhere else when it is needed again. 
+## 8. Running the model with Docker
 
-*Update July 2017*
+### About
 
-Since July 2017, the model can create movies (mp4 files) as output. The first movie is land use change for a single Monte Carlo sample and matches Figure 2 in the article (http://www.sciencedirect.com/science/article/pii/S0198971511000883#f0010). The second movie is the availability of land for eucalyptus and matches Figure 5 in the article (http://www.sciencedirect.com/science/article/pii/S0198971511000883#f0025). This one is only created when the model is run stochastically, i.e. with more than one Monte Carlo sample. For this to work you need to install `ffmpeg` and the `matplotlib` Python library.
+[Docker is](https://www.docker.com/what-docker) a containerization solution to package applications and their dependencies. It is very well suited [for reproducible research](https://scholar.google.de/scholar?q=docker+%22reproducible+research%22&btnG=&hl=de&as_sdt=0%2C5), because it allows to capture and transfer a scientist's runtime environment (see [Boettiger et al.](https://doi.org/10.1145/2723872.2723882) and [Nüst et al.](http://doi.org/10.1045/january2017-nuest)).
 
+A Docker _container_ is the running instance of a Docker _image_. A Docker _image_ can be build following the instructions in a [Dockerfile](https://docs.docker.com/engine/reference/builder/), which is like a manifest or recipe for the image. Ready-to-use images are published on [Docker Hub](https://hub.docker.com/help/) and [can be run](https://docs.docker.com/engine/reference/run/) on any machine that has a working Docker installation with a single command.
 
+This repository contains a `Dockerfile` with the instructions to (i) install PCRaster and all requirements, (ii) copy all input files into the image, and (iii) run the analysis. You can either [run a pre-build image from Docker Hub](#run-from-docker-hub) or [build locally and run it](#build-image-locally-and-run-it).
+
+### tl;dr
+
+```bash
+docker run -it --name pluc_moz nuest/pluc_mozambique
+```
+
+### Install Docker
+
+Install [Docker Community Edition](https://www.docker.com/community-edition#/download).
+
+### Run from Docker Hub
+
+Execute the following commands to 
+
+1. run the analysis in a Docker [image from Docker Hub](https://hub.docker.com/r/nuest/pluc_mozambique/) and 
+2. extract two video files from the container showing the model result.
+
+```bash
+# 1.
+docker run -it --name pluc_moz nuest/pluc_mozambique
+
+# 2.
+docker cp lu-moz:/pluc/movie_euSc-ave.mp4 movie_euSc-ave.mp4
+docker cp lu-moz:/pluc/movie_landUse.mp4 movie_landUse.mp4
+```
+
+The image contains [Label Schema](http://label-schema.org) metadata, which you can [explore on MicroBadger](https://microbadger.com/images/nuest/pluc_mozambique). The images on Docker Hub have [tags](https://hub.docker.com/r/nuest/pluc_mozambique/tags/) matching the [respective git commit](https://github.com/nuest/PLUC_Mozambique/tree/5e5d91ef88b1bc39b0390c8a30fa2ba253749023) for each time they are build. To increase reproducibility it is recommended to always execute a specific tag.
+
+You can use the following commands to
+
+1. `run` a specific image tag (by default Docker uses the tag `latest`),
+1. [remove](https://docs.docker.com/engine/reference/commandline/rm/) a container from a previous executions (must match name provided with `docker run --name ..`,
+1. change the configuration by [mounting](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v-read-only) your own configuration file into the container as a volume (an edited copy of `model/Parameters.py` in this repository, or
+1. [open a Bash shell](https://docs.docker.com/engine/reference/commandline/run/#options) in a [ephemeral container](https://docs.docker.com/engine/reference/run/#clean-up-rm) the container for debugging:
+
+```bash
+# 1.
+docker run nuest/pluc_mozambique:5e5d91e
+
+# 2.
+docker rm pluc_moz
+
+# 3.
+docker run -it -v $(pwd)/my_params.py:/pluc/Parameters.py nuest/pluc_mozambique
+
+# 4.
+docker run -it --rm --entrypoint /bin/bash nuest/pluc_mozambique
+```
+
+### Build image locally and run it
+
+```bash
+docker build --tag my-pcraster-pluc .
+docker run -it --rm my-pcraster-pluc
+```
