@@ -278,8 +278,6 @@ The link opens the Jupyter Notebook at `model/PLUC.ipynb` using the Jupyter Lab 
 repo2docker --debug .
 ```
 
-To edit the Jupyter Notebook (file `PLUC.ipynb`) locally use the `--editable` flag.
-
 **Configuration**
 
 The folder `binder` (see [docs](https://repo2docker.readthedocs.io/en/latest/usage.html#where-to-put-configuration-files)) contains several [configuration files](https://repo2docker.readthedocs.io/en/latest/config_files.html) to create the same environment as in the `Dockerfile` but with a Jupyter Notebook Server.
