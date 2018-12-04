@@ -1,0 +1,9 @@
+name: pcraster-python-environment
+channels:
+  - conda-forge
+dependencies:
+  - python=2.7
+  - numpy
+  - matplotlib
+  #pip:
+  #  -

@@ -883,9 +883,11 @@ class LandUseChangeModel(DynamicModel, MonteCarloModel):
 
     print '\n...done'
 
-nrOfTimeSteps = Parameters.getNrTimesteps()
-nrOfSamples = Parameters.getNrSamples()
-myModel = LandUseChangeModel()
-dynamicModel = DynamicFramework(myModel,nrOfTimeSteps)
-mcModel = MonteCarloFramework(dynamicModel, nrOfSamples)
-mcModel.run()
+# only run the model if module is run directly
+if __name__ == "__main__":
+  nrOfTimeSteps = Parameters.getNrTimesteps()
+  nrOfSamples = Parameters.getNrSamples()
+  myModel = LandUseChangeModel()
+  dynamicModel = DynamicFramework(myModel,nrOfTimeSteps)
+  mcModel = MonteCarloFramework(dynamicModel, nrOfSamples)
+  mcModel.run()
