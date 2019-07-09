@@ -36,7 +36,7 @@ ARG VCS_REF
 ARG BUILD_DATE
 
 # Metadata http://label-schema.org/rc1/
-LABEL maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
+LABEL maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>" \
       org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
       org.label-schema.url="http://o2r.info" \
       org.label-schema.name="PLUC Mozambique" \
