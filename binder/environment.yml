@@ -5,20 +5,13 @@ channels:
   - conda-forge/label/broken
   - defaults
 dependencies:
-  - backports-abc==0.5
-  - backports.functools-lru-cache==1.5
-  - backports.shutil-get-terminal-size==1.0.0
   - certifi==2019.6.16
   - cycler==0.10.0
   - decorator==4.4.0
   - enum34==1.1.6
-  - functools32==3.2.3.post2
   - futures==3.2.0
   - ipykernel==4.8.2
   - ipython==5.8.0
-  - ipython-genutils==0.2.0
-  - jupyter-client==5.2.4
-  - jupyter-core==4.4.0
   - kiwisolver==1.1.0
   - matplotlib==2.2.4
   - numpy==1.16.4
@@ -26,7 +19,6 @@ dependencies:
   - pexpect==4.7.0
   - pickleshare==0.7.5
   - pip==19.1
-  - prompt-toolkit==1.0.15
   - ptyprocess==0.6.0
   - Pygments==2.4.2
   - pyparsing==2.4.0
