@@ -3,6 +3,11 @@ Judith Verstegen, 2017-07-04
 
 """
 
+# reduce font-related clutter in tracing tools by selecting a default font
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['Arial']
+
 from matplotlib import animation
 from matplotlib import colors as cls
 from matplotlib import pyplot as plt

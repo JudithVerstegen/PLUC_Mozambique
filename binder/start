@@ -1,0 +1,7 @@
+#!/bin/bash
+set -ex
+
+export PATH="/home/$(whoami)/pcraster/bin:$PATH"
+export PYTHONPATH="/home/$(whoami)/pcraster/python:$PYTHONPATH"
+
+exec "$@"

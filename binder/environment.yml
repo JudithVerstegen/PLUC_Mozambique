@@ -1,0 +1,39 @@
+# file created based on "conda env export -n root" in a working Binder session, see https://repo2docker.readthedocs.io/en/latest/howto/export_environment.html
+name: pcraster-python-environment
+channels:
+  # "truly freeze" even accepting broken packages, see https://mybinder.readthedocs.io/en/latest/tutorials/reproducibility.html
+  - conda-forge/label/broken
+  - defaults
+dependencies:
+  - certifi==2019.6.16
+  - cycler==0.10.0
+  - decorator==4.4.0
+  - enum34==1.1.6
+  - futures==3.2.0
+  - ipykernel==4.8.2
+  - ipython==5.8.0
+  - kiwisolver==1.1.0
+  - matplotlib==2.2.4
+  - numpy==1.16.4
+  - pathlib2==2.3.3
+  - pexpect==4.7.0
+  - pickleshare==0.7.5
+  #- pip==19.1 > incompatible as it points to Python >=3.6
+  - ptyprocess==0.6.0
+  - Pygments==2.4.2
+  - pyparsing==2.4.0
+  - Python==2.7.15
+  - python-dateutil==2.8.0
+  - pytz==2019.1
+  - pyzmq==18.0.1
+  - scandir==1.10.0
+  - setuptools==41.0.1
+  - simplegeneric==0.8.1
+  - singledispatch==3.4.0.3
+  - six==1.12.0
+  - subprocess32==3.5.4
+  - tornado==5.1.1
+  - traitlets==4.3.2
+  - wcwidth==0.1.7
+  - wheel==0.33.4
+  - wsgiref==0.1.2

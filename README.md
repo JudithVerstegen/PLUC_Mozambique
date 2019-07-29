@@ -261,3 +261,24 @@ docker run -it --rm --entrypoint /bin/bash nuest/pluc_mozambique
 docker build --tag my-pcraster-pluc .
 docker run -it --rm my-pcraster-pluc
 ```
+
+--------------------------------
+
+## 9. Running the model as a Binder
+
+**Run on binder**
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/PLUC_Mozambique/master?urlpath=%2Flab%2Ftree%2Fmodel%2FPLUC.ipynb)
+
+The link opens the Jupyter Notebook at `model/PLUC.ipynb` using the Jupyter Lab UI.
+
+**Run locally**
+
+```bash
+repo2docker --debug .
+```
+
+**Configuration**
+
+The folder `binder` (see [docs](https://repo2docker.readthedocs.io/en/latest/usage.html#where-to-put-configuration-files)) contains several [configuration files](https://repo2docker.readthedocs.io/en/latest/config_files.html) to create the same environment as in the `Dockerfile` but with a Jupyter Notebook Server.
+Since the folder `binder` is found, the tool `repo2docker` and subsequently all Binder instances ignore the `Dockerfile` and use the configuration in there instead.

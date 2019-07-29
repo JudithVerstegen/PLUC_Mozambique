@@ -1,5 +1,4 @@
-FROM python:2.7-wheezy
-MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
+FROM python:2.7
 
 ENV PCRASTER_VERSION=4.1.0
 ENV PCRASTER_ARCH=_x86-64
@@ -37,7 +36,8 @@ ARG VCS_REF
 ARG BUILD_DATE
 
 # Metadata http://label-schema.org/rc1/
-LABEL org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
+LABEL maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>" \
+      org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
       org.label-schema.url="http://o2r.info" \
       org.label-schema.name="PLUC Mozambique" \
       org.label-schema.description="PCRaster Land Use Change model (PLUC) for Mozambique, created in PCRaster (http://pcraster.geo.uu.nl/) in Python. \
@@ -50,8 +50,5 @@ LABEL org.label-schema.vendor="Judith Verstegen, Daniel Nüst" \
       org.label-schema.schema-version="rc1" \
       org.label-schema.docker.cmd="docker run -it --name lu-moz pcraster-pluc"
 
-
 ENTRYPOINT ["python"]
 CMD ["LU_Moz.py"]
-
-# lint after update: $ docker run -it --rm --privileged -v $(pwd):/root/ projectatomic/dockerfile-lint dockerfile_lint

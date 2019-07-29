@@ -1,0 +1,10 @@
+#!/bin/bash
+set -ex
+
+PCRASTER_VERSION=4.1.0
+PCRASTER_ARCH=_x86-64
+
+curl -LO https://downloads.sourceforge.net/project/pcraster/PCRaster/$PCRASTER_VERSION/pcraster-$PCRASTER_VERSION$PCRASTER_ARCH.tar.gz \
+  && mkdir pcraster \
+  && tar zxf pcraster-*.tar.gz --strip-components=1 -C pcraster \
+  && rm pcraster-*.tar.gz
