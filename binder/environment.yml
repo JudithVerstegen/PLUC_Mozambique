@@ -18,7 +18,7 @@ dependencies:
   - pathlib2==2.3.3
   - pexpect==4.7.0
   - pickleshare==0.7.5
-  - pip==19.1
+  #- pip==19.1 > incompatible as it points to Python >=3.6
   - ptyprocess==0.6.0
   - Pygments==2.4.2
   - pyparsing==2.4.0
