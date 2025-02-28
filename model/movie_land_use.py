@@ -85,7 +85,7 @@ def animate(i):
         fn = in_fn[:-3] + '00' + str(t)
     else:
         fn = in_fn[:-3] + '0' + str(t)
-    ##print fn
+    ##print(fn)
     amap = readmap(fn)
     data = pcr2numpy(amap, 0)
     im = axarr.imshow(data, norm=norm_without_mv, zorder=0,\
