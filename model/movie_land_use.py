@@ -1,5 +1,5 @@
-"""Make an MP4 file of the output of the LUC model of Mozambique
-Judith Verstegen, 2017-07-04
+"""Make an gif file of the output of the LUC model of Mozambique
+Judith Verstegen, 2017-07-04 (adapted 2025-03-05)
 
 """
 
@@ -15,6 +15,8 @@ import Parameters
 ##############
 ### inputs ###
 ##############
+
+setclone('landuse.map')
 
 timesteps = Parameters.getNrTimesteps()
 init_year = 2005
@@ -45,7 +47,7 @@ data = pcr2numpy(amap, 0)
 
 # create custom color map
 colorlist = []
-for i in range(0, np.max(np.array(list_all_names.keys())) + 1):
+for i in range(0, np.max(np.array(list(list_all_names.keys()))) + 1):
     if i in list_all_colors:
         colorlist.append(list_all_colors.get(i))     
     else:
@@ -58,12 +60,12 @@ plt.axis('off')
 # and normalization scheme
 cmap_long = cls.ListedColormap(colorlist, name='long')
 norm_without_mv = cls.Normalize(vmin=0, \
-                    vmax=np.max(np.array(list_all_names.keys())))
+                    vmax=np.max(np.array(list(list_all_names.keys()))))
 # create the legend
 p = []
 s = []
 # loop over reversed list for ascending order
-for nr in list_all_names.keys():#[::-1]:
+for nr in list(list_all_names.keys()):#[::-1]:
   p.append(plt.Circle((0, 0), radius=3, lw=0, fc=list_all_colors[nr]))
   s.append(list_all_names[nr])
 leg = axarr.legend(p, s, loc='right', bbox_to_anchor=legend_loc,\
@@ -97,5 +99,6 @@ def animate(i):
 im_ani = animation.FuncAnimation(f, animate, interval=300, \
                                    blit=False, frames = timesteps,\
                                    init_func=init)
-im_ani.save('movie_' + fn + '.mp4', dpi=300, metadata={'artist':'Judith Verstegen'})
+writer = animation.PillowWriter(fps=1, metadata={'artist':'Judith Verstegen'})
+im_ani.save('movie_' + fn + '.gif', writer=writer, dpi=300)
 #plt.show()

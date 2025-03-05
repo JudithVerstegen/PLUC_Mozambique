@@ -1,5 +1,5 @@
-"""Make an MP4 file of the output of the LUC model of Mozambique
-Judith Verstegen, 2017-07-04
+"""Make an gif file of the output of the LUC model of Mozambique
+Judith Verstegen, 2017-07-04 (adapted 2025-03-05)
 
 """
 
@@ -71,6 +71,7 @@ def animate(i):
 im_ani = animation.FuncAnimation(f, animate, interval=300, \
                                    blit=False, frames = timesteps,\
                                    init_func=init_movie)
-im_ani.save('movie_' + fn1 + '.mp4', dpi=300, \
-            metadata={'artist':'Judith Verstegen'})
+writer = animation.PillowWriter(fps=1, metadata={'artist':'Judith Verstegen'})
+im_ani.save('movie_' + fn1 + '.gif', writer=writer, dpi=300)
+# https://matplotlib.org/stable/gallery/animation/simple_scatter.html
 #plt.show()

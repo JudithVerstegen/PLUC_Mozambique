@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.12
-  - numpy
+  - numpy=1.26
   - pcraster
   - matplotlib-base
 
