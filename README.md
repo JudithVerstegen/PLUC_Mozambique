@@ -18,7 +18,7 @@ A land use change model of Mozambique was created in PCRaster Python. The aim of
 
 In order to run the model, installation of [PCRaster] (https://pcraster.geo.uu.nl/) is required. PLUC Mozambique has two versions:
 - The [First release](https://github.com/JudithVerstegen/PLUC_Mozambique/releases/tag/v1.0.0) with PCRaster version `4.1.0`, [Python](https://www.numpy.org/) version `2.7` and [Numpy](http://www.numpy.org/) version `1.8`. This release corresponds to the above-mentioned publications [Verstegen et al. 2012](https://doi.org/10.1016%2Fj.compenvurbsys.2011.08.003) and [van der Hilst et al. 2012](https://doi.org/10.1111/j.1757-1707.2011.01147.x).
-- The [Current version](https://github.com/JudithVerstegen/PLUC_Mozambique) with PCRaster version `4.4.1`, [Python](https://www.numpy.org/) version `3.12` and [Numpy](http://www.numpy.org/) version `2.2.3`.
+- The [Current version](https://github.com/JudithVerstegen/PLUC_Mozambique) with PCRaster version `4.4.1`, [Python](https://www.numpy.org/) version `3.12` and [Numpy](http://www.numpy.org/) version `1.26`.
 
 The installation of these packages for the current version can be done with the conda environment file: [pluc.yaml](https://github.com/JudithVerstegen/PLUC_Mozambique/blob/master/model/pluc.yaml).
 
@@ -200,7 +200,7 @@ Since July 2017, the model can create movies (mp4 files) as output. The first mo
 
 ### Update February 2025
 
-In February 2025, PLUC Mozambique has been converted to Python `3`. See the requirements section for specific info on the packages for the first release (Python 2) and the current (Python 3) version.
+In February 2025, PLUC Mozambique has been converted to Python `3`. See the requirements section for specific info on the packages for the first release (Python 2) and the current (Python 3) version. The output movies are now in .gif format instead of .mp4 format.
 
 --------------------------------
 
