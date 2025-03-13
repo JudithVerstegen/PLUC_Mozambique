@@ -2,5 +2,5 @@
 **/.0*
 model/1/**
 .vscode
-*.mp4
+*.gif
 test/my_params.py

@@ -16,7 +16,7 @@ def getNrSamples():
 
   If Monte Carlo isn't required fill in 1; no statistics will be calculated."""
 
-  samples = 2
+  samples = 1
   return samples
 
 def getConversionUnit():
@@ -33,7 +33,7 @@ def getStochYield():
   standardDeviationMap will be used on top of the yield fraction maps
   standardDeviationMaxYield will be used for the time series."""
 
-  stochastic = 1
+  stochastic = 0
   standardDeviationMap = 0.2
   standardDeviationMaxYield = 0.1
   return [stochastic, standardDeviationMap, standardDeviationMaxYield]

@@ -325,8 +325,7 @@ class LandUseType:
       else:
         print('ERROR: unknown suitability factor for landuse', self.typeNr)
       i += 1
-    suitabilityMap += self.weightInitialSuitabilityMap * \
-                      self.initialSuitabilityMap
+    suitabilityMap += self.initialSuitabilityMap
     self.totalSuitabilityMap = ifthen(pcrnot(self.mask), suitabilityMap)
     self.totalSuitabilityMap = self.normalizeMap(self.totalSuitabilityMap)
     return self.totalSuitabilityMap
