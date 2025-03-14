@@ -4,3 +4,4 @@ model/1/**
 .vscode
 *.gif
 test/my_params.py
+dist*

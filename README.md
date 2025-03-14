@@ -202,6 +202,13 @@ Since July 2017, the model can create movies (mp4 files) as output. The first mo
 
 In February 2025, PLUC Mozambique has been converted to Python `3`. See the requirements section for specific info on the packages for the first release (Python 2) and the current (Python 3) version. The output movies are now in .gif format instead of .mp4 format.
 
+### Update March 2025
+
+In March 2025, two edits were made: 
+- A bug was fixed: Some suitability factors (the static ones) were multiplied by the weight twice. As such, the final weights in the suitability map did not correspond to the user's input. This has been fixed. Note: results from the 2012 paper will thus not be replicable with the current (Python 3) version. 
+- Code was added to calculate the distance maps (input for the suitability map) only when they do not exist yet, in order to reduce computation time. Please note: when input data for the distance maps (roads or initial land use) is changed, please remove at least one of the distance maps (distRoads, distWater, distCities) such that they are automatically recalculated when running the model.
+
+
 --------------------------------
 
 ## 8. Running the model with Docker

@@ -594,17 +594,25 @@ class LandUse:
   def determineDistanceToRoads(self, booleanMapRoads):
     """Create map with distance to roads, given a boolean map with roads."""
     self.distRoads = spread(booleanMapRoads, 0, 1)
-##    report(self.distRoads, 'distRoads')
+    report(self.distRoads, 'distRoads')
     
   def determineDistanceToWater(self, booleanMapWater):
     """Create map with distance to water, given a boolean map with water."""
     self.distWater = spread(booleanMapWater, 0, 1)
-##    report(self.distWater, 'distWater')
+    report(self.distWater, 'distWater')
 
   def determineDistanceToLargeCities(self, booleanMapCities):
     """Create map with distance to cities, using a boolean map with cities."""
     self.distCities = spread(booleanMapCities, 0, 1)
-##    report(self.distCities, 'distCities')
+    report(self.distCities, 'distCities')
+
+  def loadDistanceMaps(self):
+    """load the distance maps, when they cannot be kept in memory (fork)"""
+##    print os.getcwd()
+    self.distRoads = readmap('distRoads')
+    self.distWater = readmap('distWater')
+    self.distCities = readmap('distCities')
+
   
   def calculateStaticSuitabilityMaps(self):
     """Get the part of the suitability maps that remains the same."""
@@ -778,9 +786,20 @@ class LandUseChangeModel(DynamicModel, MonteCarloModel):
     ## Static suitability factors
     self.landUse.determineNoGoAreas(self.noGoMap, self.noGoLanduseList, \
                                     self.privateNoGoSlopeDict)
-    self.landUse.determineDistanceToRoads(self.roads)
-    self.landUse.determineDistanceToWater(self.water)
-    self.landUse.determineDistanceToLargeCities(self.cities)
+    # compute distances to roads, water and cities
+    # but only if the distance maps do not exist on disk yet 
+    # (to save computation time)
+    wd = os.getcwd()
+    path_roads = os.path.join(wd, 'distRoads')
+    path_water = os.path.join(wd, 'distWater')
+    path_cities = os.path.join(wd, 'distCities')
+    if os.path.exists(path_roads) and os.path.exists(path_water) \
+        and os.path.exists(path_cities): 
+            self.landUse.loadDistanceMaps()
+    else:    
+        self.landUse.determineDistanceToRoads(self.roads)
+        self.landUse.determineDistanceToWater(self.water)
+        self.landUse.determineDistanceToLargeCities(self.cities)    
     self.landUse.calculateStaticSuitabilityMaps()
           
     ## Draw random numbers between zero and one
